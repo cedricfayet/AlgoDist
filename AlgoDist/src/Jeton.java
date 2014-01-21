@@ -29,4 +29,28 @@ public class Jeton
 	{
 		return file_requete.isEmpty();
 	}
+	
+	public IdentifiantNoeud rootage(IdentifiantNoeud identifiantperso)
+	{
+		IdentifiantNoeud suiv;
+		
+		suiv=retirerRequete().voirNoeudChemin();
+		
+		for(Requete req:file_requete)
+		{
+			if(req.voirNoeudChemin() == identifiantperso)
+			{
+				req.retirerNoeudChemin();
+				
+			}
+			else
+			{
+				req.ajouterNoeudChemin(identifiantperso);
+			}
+		}
+		
+		return suiv;
+	}
+	
+
 }
