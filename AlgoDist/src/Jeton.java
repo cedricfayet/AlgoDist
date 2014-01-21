@@ -41,7 +41,6 @@ public class Jeton
 			if(req.voirNoeudChemin() == identifiantperso)
 			{
 				req.retirerNoeudChemin();
-				
 			}
 			else
 			{

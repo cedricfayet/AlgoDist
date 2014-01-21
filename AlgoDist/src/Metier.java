@@ -1,4 +1,5 @@
 
-public class Metier {
+public class Metier extends Thread
+{
 
 }
