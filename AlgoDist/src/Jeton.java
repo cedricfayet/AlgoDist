@@ -33,7 +33,7 @@ public class Jeton
 	public IdentifiantNoeud rootage(IdentifiantNoeud identifiantperso)
 	{
 		IdentifiantNoeud suiv;
-		
+		retirerRequete();
 		suiv=retirerRequete().voirNoeudChemin();
 		
 		for(Requete req:file_requete)
