@@ -1,4 +1,5 @@
-package guillaume.algoDist.RMI;
+
+
 
 import java.rmi.RemoteException;
 import java.rmi.server.RMIClientSocketFactory;
@@ -10,17 +11,13 @@ public class Gestionnaire_de_transmission extends UnicastRemoteObject implements
 
 	
 	
-	/**
-	 * A quoi ca sert ??
-	 */
-	private static final long serialVersionUID = 4459518106264845826L;
 
 	
-	protected Gestionnaire_de_transmission() throws RemoteException
-	{
+	protected Gestionnaire_de_transmission() throws RemoteException {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public void transmettre_jeton() throws RemoteException {
 		System.out.println("J'ai reçu une demande de transmission de jeton");
