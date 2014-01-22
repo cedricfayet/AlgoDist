@@ -9,10 +9,7 @@ public class IdentifiantNoeud
         {
         	setAdresse(adresse);
         	setPort(port);
-        	if(id_process.isEmpty())
-        		setId_process(0);
-        	else
-        		setId_process(Integer.parseInt(id_process));
+			setId_process(Integer.parseInt(id_process));
 		}
         
 		public String getAdresse() 

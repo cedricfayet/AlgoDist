@@ -1,39 +1,28 @@
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.rmi.RemoteException;
 import java.util.concurrent.Semaphore;
 
 public class Noeud 
 {
 	private static Metier metier;
-	private static GestionnaireTransmission controleur;
+	private static Controleur controleur;
 	public static IdentifiantNoeud identifiant;
 	public static IdentifiantNoeud identifiant_pere;
 	public static Jeton jeton;
+	public static Semaphore s;
 	
 	public static void main(String[] args)
 	{
-		//Récupération de l'identifiant du noeud
-		identifiant = new IdentifiantNoeud();
-		try {
-			identifiant.setAdresse(InetAddress.getLocalHost().getHostAddress());
-		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
-		identifiant_pere.setAdresse("AdresseDuPere");//Donner l'adresse du père en argument
-		Semaphore s = new Semaphore(0);
+		//identifiant = new IdentifiantNoeud(args[0],args[1],args[2]);
+		//identifiant_pere= new IdentifiantNoeud(args[3],args[4],args[5]);
 		
-		metier=new Metier();
+		identifiant = new IdentifiantNoeud("","","");
+		identifiant_pere= new IdentifiantNoeud("","","");	
 		
-		try {
-			controleur=new GestionnaireTransmission(identifiant_pere,s);
-		} catch (RemoteException e1) {
-			e1.printStackTrace();
-		}
+		s=new Semaphore(0);
+		controleur=new Controleur(s);
+		metier=new Metier(s,controleur);
 
-		if(identifiant_pere == null)
+		if(identifiant_pere.estRacine())
 			jeton=new Jeton();
 
 		metier.start();
@@ -41,7 +30,6 @@ public class Noeud
 		try 
 		{
 			metier.join();
-			
 		} 
 		catch (InterruptedException e) {
 			// TODO Auto-generated catch block
