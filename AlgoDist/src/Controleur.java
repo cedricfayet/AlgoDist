@@ -12,7 +12,7 @@ public class Controleur
 	
 	public void demander_SectionCritique()
 	{
-		System.out.println("Ah j'attend avant de donner accès à la SC :D");
+		System.out.println("Ah j'attend avant de donner accï¿½s ï¿½ la SC :D");
 		s.release();
 	}
 	
@@ -21,7 +21,13 @@ public class Controleur
 		
 	}
 	
-	public void recevoir(Jeton jeton){}
+	public void recevoir(Jeton jeton)
+	{
+		
+	}
 	
-	public void recevoir(Requete requete){}
+	public void recevoir(Requete requete)
+	{
+		
+	}
 }
