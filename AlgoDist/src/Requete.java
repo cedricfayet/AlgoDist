@@ -11,12 +11,12 @@ public class Requete
 		this.setChemin(chemin);
 	}
 	
-	public IdentifiantNoeud retirerNoeudChemin()
+	public IdentifiantNoeud retirer_premier_NoeudChemin()
 	{
 		return chemin.pop();
 	}
 	
-	public IdentifiantNoeud voirNoeudChemin()
+	public IdentifiantNoeud voir_premier_NoeudChemin()
 	{
 		return chemin.peek();
 	}

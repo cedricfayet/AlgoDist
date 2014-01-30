@@ -9,6 +9,14 @@ public class GestionnaireTransmission extends UnicastRemoteObject implements Tra
 	private Controleur controleur;
 	private IdentifiantNoeud id_pere;
 	
+	IdentifiantNoeud getId_pere() {
+		return id_pere;
+	}
+
+	void setId_pere(IdentifiantNoeud id_pere) {
+		this.id_pere = id_pere;
+	}
+
 	GestionnaireTransmission(Controleur controleur,IdentifiantNoeud id_pere) throws RemoteException
 	{
 		super();
@@ -41,8 +49,7 @@ public class GestionnaireTransmission extends UnicastRemoteObject implements Tra
 
 			Transmission gestionnaire_de_transmission;
 			// Récupération du père;
-			gestionnaire_de_transmission = (Transmission) Naming.lookup(id_pere
-					.toString());
+			gestionnaire_de_transmission = (Transmission) Naming.lookup(id_pere.toString());
 			// Demande de transmission au père
 			gestionnaire_de_transmission.envoyer(jeton);
 
@@ -58,8 +65,7 @@ public class GestionnaireTransmission extends UnicastRemoteObject implements Tra
 
 			Transmission gestionnaire_de_transmission;
 			// Récupération du père;
-			gestionnaire_de_transmission = (Transmission) Naming.lookup(id_pere
-					.toString());
+			gestionnaire_de_transmission = (Transmission) Naming.lookup(id_pere.toString());
 			// Demande de transmission au père
 			gestionnaire_de_transmission.envoyer(requete);
 
