@@ -1,15 +1,13 @@
 import java.util.concurrent.Semaphore;
 
-import metier.Metier;
-
+import metier.Exemple1;
 import HT.controleur.Controleur;
 
 public class Noeud 
 {
-	private static Metier metier;
+	private static Exemple1 metier;
 	private static Controleur controleur;
-	
-	
+		
 	public static void main(String[] args)
 	{
 				
@@ -17,7 +15,7 @@ public class Noeud
 		
 		//TODO: Ajouter les arguments du main definissant mon pere.
 		controleur=new Controleur(s);
-		metier=new Metier(s,controleur);
+		metier=new Exemple1(s,controleur);
 
 		metier.start();
 		try 
