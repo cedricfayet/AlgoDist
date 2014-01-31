@@ -1,4 +1,6 @@
-public class IdentifiantNoeud 
+package HT.controleur;
+
+class IdentifiantNoeud 
 {
 
         private String adresse;
@@ -9,7 +11,10 @@ public class IdentifiantNoeud
         {
         	setAdresse(adresse);
         	setPort(port);
-			setId_process(Integer.parseInt(id_process));
+        	if(id_process.isEmpty())
+        		setId_process(0);
+        	else
+        		setId_process(Integer.parseInt(id_process));
 		}
         
 		public String getAdresse() 

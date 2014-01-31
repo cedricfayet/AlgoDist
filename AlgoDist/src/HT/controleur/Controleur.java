@@ -1,3 +1,5 @@
+package HT.controleur;
+
 import java.rmi.RemoteException;
 import java.util.concurrent.Semaphore;
 
@@ -6,6 +8,9 @@ public class Controleur
 {
 	private Semaphore s;
 	private GestionnaireTransmission gestionnaire_de_transmission;
+	private IdentifiantNoeud identifiant;
+	private IdentifiantNoeud identifiant_pere;
+	private Jeton jeton;
 	//TO DO: Identifiant perso, comment on le définit ? 
 	//TO DO: A enlever !
 	private IdentifiantNoeud id_perso;
@@ -14,6 +19,8 @@ public class Controleur
 		//TO DO: Definir identifiant perso
 		try {
 			gestionnaire_de_transmission = new GestionnaireTransmission(this, id_pere);
+			if(identifiant_pere.estRacine())
+				jeton=new Jeton();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -24,7 +31,7 @@ public class Controleur
 		id_perso = new IdentifiantNoeud("127.0.0.1","1O99","A");
 	}
 
-	Controleur(Semaphore s)
+	public Controleur(Semaphore s)
 	{
 		this.s=s;
 	}
@@ -33,14 +40,14 @@ public class Controleur
 	{
 		System.out.println("Ah j'attend avant de donner acc�s � la SC :D");
 		s.release();
-	}
+	}	
 	
 	public void sortir_SectionCritique()
 	{
 		
 	}
 	
-	public void recevoir(Jeton jeton)
+	void recevoir(Jeton jeton)
 	{
 		System.out.println("J'ai reçu une demande de transmission de jeton");
 		//C'est maintenant ce processus le possesseur du jeton, donc pas de père.
@@ -69,8 +76,13 @@ public class Controleur
 		}
 	}
 	
-	public void recevoir(Requete requete)
+	void recevoir(Requete requete)
 	{
 		
+	}
+	
+	public Object get_objet_partage(String id)
+	{
+		return jeton.objets_partages.get(id);
 	}
 }

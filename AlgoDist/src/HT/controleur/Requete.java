@@ -1,6 +1,8 @@
+package HT.controleur;
 import java.util.Stack;
 
-public class Requete
+
+class Requete
 {
 	private IdentifiantNoeud demandeur;
 	private Stack<IdentifiantNoeud> chemin;
@@ -11,22 +13,22 @@ public class Requete
 		this.setChemin(chemin);
 	}
 	
-	public IdentifiantNoeud retirerNoeudChemin()
+	IdentifiantNoeud retirer_premier_NoeudChemin()
 	{
 		return chemin.pop();
 	}
 	
-	public IdentifiantNoeud voirNoeudChemin()
+	IdentifiantNoeud voir_premier_NoeudChemin()
 	{
 		return chemin.peek();
 	}
 	
-	public void ajouterNoeudChemin(IdentifiantNoeud nom)
+	void ajouterNoeudChemin(IdentifiantNoeud nom)
 	{
 		chemin.push(nom);
 	}
 
-	public IdentifiantNoeud getDemandeur() {
+	IdentifiantNoeud getDemandeur() {
 		return demandeur;
 	}
 
@@ -34,7 +36,7 @@ public class Requete
 		this.demandeur = demandeur;
 	}
 
-	public Stack<IdentifiantNoeud> getChemin() {
+	Stack<IdentifiantNoeud> getChemin() {
 		return chemin;
 	}
 
