@@ -1,27 +1,24 @@
+
+
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 
+
 public class GestionnaireTransmission extends UnicastRemoteObject implements Transmission
 {
+
+	private static final long serialVersionUID = 1L;
 	private Controleur controleur;
-	private IdentifiantNoeud id_pere;
 	
-	IdentifiantNoeud getId_pere() {
-		return id_pere;
-	}
 
-	void setId_pere(IdentifiantNoeud id_pere) {
-		this.id_pere = id_pere;
-	}
-
-	GestionnaireTransmission(Controleur controleur,IdentifiantNoeud id_pere) throws RemoteException
+	GestionnaireTransmission(Controleur controleur) throws RemoteException
 	{
 		super();
 		this.controleur = controleur;
-		this.id_pere = id_pere;
 		
 		//Gestion des propriété de la JVM et du sécurity manager 
 		System.setProperty("java.rmi.server.codebase", "file:./");
@@ -31,10 +28,25 @@ public class GestionnaireTransmission extends UnicastRemoteObject implements Tra
 				System.setSecurityManager(new RMISecurityManager());
 		}
 		
+		try 
+		{
+			Naming.rebind(controleur.getId_perso().toString(), this);
+			System.out.println("Enregistrement du gestionnaire de transmission");
+			System.out.println(controleur.getId_perso().toString());
+		} 
+		catch (java.net.MalformedURLException e) {
+			System.out.println("Mauvais nom de serveur");
+		} 
+		catch (RemoteException e) {
+			System.out.println("Problème remote");
+			System.out.println(e.getMessage());
+		}
+		
 	}
 	
 	public void envoyer(Jeton jeton)
 	{
+		System.out.println("Jeton recut");
 		controleur.recevoir(jeton);		
 	}
 	
@@ -43,43 +55,51 @@ public class GestionnaireTransmission extends UnicastRemoteObject implements Tra
 		controleur.recevoir(requete);
 	}
 	
-	public void transmettre(Jeton jeton) {
+	public void transmettre(Jeton jeton,IdentifiantNoeud id_pere) {
 		
 		try {
 
-			Transmission gestionnaire_de_transmission;
+			Transmission pere_gestionnaire_de_transmission;
 			// Récupération du père;
-			gestionnaire_de_transmission = (Transmission) Naming.lookup(id_pere.toString());
+			//TODO test
+			System.out.println(id_pere.toString());
+			pere_gestionnaire_de_transmission = (Transmission) Naming.lookup(id_pere.toString());
 			// Demande de transmission au père
-			gestionnaire_de_transmission.envoyer(jeton);
+			pere_gestionnaire_de_transmission.envoyer(jeton);
 
 		} catch (Exception e) {
-			System.out.print(e.getMessage());
+			//System.out.print(e.getMessage());
 			System.out.println("La remote a pas fonctionné");
 		}
 	}
 	
-	public void transmettre(Requete requete) {
+	public void transmettre(Requete requete,IdentifiantNoeud id_pere) {
 		
 		try {
 
 			Transmission gestionnaire_de_transmission;
 			// Récupération du père;
+			//TODO test
+			System.out.println(id_pere.toString());
 			gestionnaire_de_transmission = (Transmission) Naming.lookup(id_pere.toString());
 			// Demande de transmission au père
 			gestionnaire_de_transmission.envoyer(requete);
 
-		} catch (Exception e) {
-			System.out.print(e.getMessage());
-			System.out.println("La remote a pas fonctionné");
+		} catch (NotBoundException e) {
+			//System.out.print(e.getMessage());
+			System.out.println("La remote n'est pas enregistré - not bound");
+		}
+		catch(java.net.MalformedURLException e)
+		{
+			System.out.println("La remote n'est pas enregistré - mal formed url");
+		}
+		catch(RemoteException e)
+		{
+			System.out.println("La remote n'est pas enregistré - remote");
 		}
 	}
 	
-	
-	public void set_id_pere(IdentifiantNoeud id_pere)
-	{
-		
-	}
+
 	
 	
 }

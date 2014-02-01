@@ -1,32 +1,45 @@
+
+import java.io.Serializable;
 import java.util.Stack;
 
-public class Requete
+
+class Requete implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9166591421857178677L;
 	private IdentifiantNoeud demandeur;
 	private Stack<IdentifiantNoeud> chemin;
 	
-	Requete(IdentifiantNoeud demandeur,Stack<IdentifiantNoeud>chemin)
+	/**Stack<IdentifiantNoeud>chemin
+	 * @author guillaume
+	 * @param demandeur
+	 * 
+	 * Methode de création d'une nouvelle requête de demande de jeton avec l'id du demandeur.
+	 */
+	Requete(IdentifiantNoeud demandeur)
 	{
 		this.setDemandeur(demandeur);
-		this.setChemin(chemin);
+		this.chemin = new Stack<IdentifiantNoeud>();
 	}
 	
-	public IdentifiantNoeud retirer_premier_NoeudChemin()
+	IdentifiantNoeud retirer_premier_NoeudChemin()
 	{
 		return chemin.pop();
 	}
 	
-	public IdentifiantNoeud voir_premier_NoeudChemin()
+	IdentifiantNoeud voir_premier_NoeudChemin()
 	{
 		return chemin.peek();
 	}
 	
-	public void ajouterNoeudChemin(IdentifiantNoeud nom)
+	void ajouterNoeudChemin(IdentifiantNoeud nom)
 	{
 		chemin.push(nom);
 	}
 
-	public IdentifiantNoeud getDemandeur() {
+	IdentifiantNoeud getDemandeur() {
 		return demandeur;
 	}
 
@@ -34,11 +47,7 @@ public class Requete
 		this.demandeur = demandeur;
 	}
 
-	public Stack<IdentifiantNoeud> getChemin() {
+	Stack<IdentifiantNoeud> getChemin() {
 		return chemin;
-	}
-
-	private void setChemin(Stack<IdentifiantNoeud> chemin) {
-		this.chemin = chemin;
 	}
 }
